@@ -1,7 +1,9 @@
 package com.challenge.marleyspoon.repository.network
 
 import android.content.Context
+import com.challenge.marleyspoon.BuildConfig
 import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.contentful.java.cda.CDAClient
 import com.squareup.moshi.Moshi
 import okhttp3.Cache
 import okhttp3.CertificatePinner
@@ -17,7 +19,7 @@ import java.util.concurrent.TimeUnit
  * created on Tuesday, 10 September, 2019
  */
 
-object RetrofitWebServiceFactory {
+object NetworkLayerUtils {
     private const val TIME_OUTS: Long = 40L
 
     fun makeHttpClient(context: Context): OkHttpClient =
@@ -34,18 +36,15 @@ object RetrofitWebServiceFactory {
             .cache(Cache(context.cacheDir, 10 * 1024 * 1024))
             .retryOnConnectionFailure(false)
 
-
     fun createMoshiInstance() = Moshi.Builder()
         .build()
         .apply {
 
         }
 
-
     inline fun <reified T> makeServiceFactory(
         retrofit: Retrofit
     ): T = retrofit.create(T::class.java)
-
 
     fun makeRetrofit(baseUrl: String, okHttpClient: OkHttpClient): Retrofit {
         val retrofit = Retrofit.Builder()
@@ -55,5 +54,12 @@ object RetrofitWebServiceFactory {
             .build()
         return retrofit
     }
+
+    fun createCDAClient(okHttpClient: OkHttpClient): CDAClient =
+        CDAClient.builder()
+            .setCallFactory(okHttpClient)
+            .setSpace(BuildConfig.API_SPACE_ID)
+            .setToken(BuildConfig.API_ACCESS_TOKEN)
+            .build()
 
 }

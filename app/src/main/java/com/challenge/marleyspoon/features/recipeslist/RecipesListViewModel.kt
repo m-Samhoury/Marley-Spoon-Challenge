@@ -24,18 +24,12 @@ class RecipesListViewModel(
     private val _recipesListStateLiveData = MutableLiveData<RecipesListState>()
     val recipesListStateLiveData: LiveData<RecipesListState> = _recipesListStateLiveData
 
-    fun fetchRecipesList() {
+    fun fetchRecipesList(imageWidth: Int? = null) {
         _recipesListStateLiveData.value =
             recipesListState.copy(stateMonitor = StateMonitor.Loading)
         viewModelScope.launch(Dispatchers.Main) {
-            val response = repository.fetchRecipesList {
-                _recipesListStateLiveData.value =
-                    recipesListState
-                        .copy(
-                            stateMonitor = StateMonitor
-                                .Failed(failed = it)
-                        )
-            }
+            val response = repository.fetchRecipesList(imageWidth)
+
             if (response != null) {
                 _recipesListStateLiveData.value =
                     recipesListState.copy(stateMonitor = StateMonitor.Loaded(response))

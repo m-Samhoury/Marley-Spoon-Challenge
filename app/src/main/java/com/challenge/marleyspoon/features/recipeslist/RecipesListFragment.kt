@@ -8,6 +8,7 @@ import com.challenge.marleyspoon.R
 import com.challenge.marleyspoon.base.MarleySpoonFragment
 import com.challenge.marleyspoon.models.Recipe
 import com.challenge.marleyspoon.repository.network.StateMonitor
+import com.challenge.marleyspoon.utils.px
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_recipes_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -32,7 +33,7 @@ class RecipesListFragment : MarleySpoonFragment(R.layout.fragment_recipes_list) 
             handleState(it)
         })
 
-        recipesListViewModel.fetchRecipesList()
+        recipesListViewModel.fetchRecipesList(imageWidth = 80.px())
     }
 
     override fun setupViews(rootView: View) {

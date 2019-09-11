@@ -12,7 +12,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField "String", "BASE_API_URL", "\"$BASE_API_URL\""
+        buildConfigField "String", "BASE_API_URL", "\"$BASE_API_URL/$API_SPACE_ID/environments/$API_ENVIRONMENT_ID/\""
+        buildConfigField "String", "API_ACCESS_TOKEN", "\"$API_ACCESS_TOKEN\""
+        buildConfigField "String", "API_SPACE_ID", "\"$API_SPACE_ID\""
     }
     buildTypes {
         release {
@@ -49,7 +51,7 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    kapt "android.arch.lifecycle:common-java8:1.1.1"
 
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-androidx-scope:$koin_version"
@@ -70,4 +72,9 @@ dependencies {
     implementation "androidx.activity:activity-ktx:1.0.0"
 
     implementation("io.coil-kt:coil:0.7.0")
+
+    implementation "androidx.navigation:navigation-fragment-ktx:2.1.0"
+    implementation "androidx.navigation:navigation-ui-ktx:2.1.0"
+
+    implementation 'com.contentful.java:java-sdk:10.4.0'
 }

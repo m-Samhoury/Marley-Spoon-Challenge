@@ -12,10 +12,23 @@ import retrofit2.Response
  */
 class Repository(private val service: MarleySpoonService) {
 
+
+    suspend fun fetchRecipesList(
+        onError: (Exception) -> Unit
+    ) =
+        safeApiCall(
+            {
+                return@safeApiCall service.fetchRecipesList()
+            }, {
+                onError(it)
+            }
+        )
+
+
     companion object {
         suspend fun <T : Any> safeApiCall(
             call: suspend () -> Response<T>,
-            onError: (Exception) -> Any
+            onError: (Exception) -> Unit
         ): T? {
 
             val result: Result<T> = safeApiResult(call)

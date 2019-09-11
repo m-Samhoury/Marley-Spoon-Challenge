@@ -20,6 +20,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 ext {
     lifecycle_version = "2.2.0-alpha04"
@@ -61,4 +68,6 @@ dependencies {
 
     implementation 'androidx.fragment:fragment-ktx:1.1.0'
     implementation "androidx.activity:activity-ktx:1.0.0"
+
+    implementation("io.coil-kt:coil:0.7.0")
 }

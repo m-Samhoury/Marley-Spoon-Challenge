@@ -1,10 +1,12 @@
 package com.challenge.marleyspoon.di
 
 import com.challenge.marleyspoon.BuildConfig
+import com.challenge.marleyspoon.features.recipeslist.RecipesListViewModel
 import com.challenge.marleyspoon.repository.Repository
 import com.challenge.marleyspoon.repository.network.MarleySpoonService
 import com.challenge.marleyspoon.repository.network.RetrofitWebServiceFactory
 import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
@@ -24,4 +26,9 @@ val repositoryModule: Module = module {
             )
     }
     single { Repository(get()) }
+}
+val viewModelsModule = module {
+    viewModel {
+        RecipesListViewModel(repository = get())
+    }
 }

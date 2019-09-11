@@ -2,6 +2,7 @@ package com.challenge.marleyspoon
 
 import android.app.Application
 import com.challenge.marleyspoon.di.repositoryModule
+import com.challenge.marleyspoon.di.viewModelsModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
@@ -25,7 +26,7 @@ class MarleySpoonApplication : Application() {
             }
             androidFileProperties()
 
-            modules(repositoryModule)
+            modules(listOf(repositoryModule, viewModelsModule))
         }
     }
 }

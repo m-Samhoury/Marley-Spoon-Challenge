@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Marley Spoon</string>
+    <string name="action_retry">Retry</string>
+    <string name="generic_error_unknown">Unknown error</string>
 </resources>

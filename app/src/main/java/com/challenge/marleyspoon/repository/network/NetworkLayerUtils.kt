@@ -55,10 +55,10 @@ object NetworkLayerUtils {
         return retrofit
     }
 
-    fun createCDAClient(okHttpClient: OkHttpClient): CDAClient =
+    fun createCDAClient(): CDAClient =
         CDAClient.builder()
-            .setCallFactory(okHttpClient)
             .setSpace(BuildConfig.API_SPACE_ID)
+            .setEnvironment(BuildConfig.API_ENVIRONMENT_ID)
             .setToken(BuildConfig.API_ACCESS_TOKEN)
             .build()
 

@@ -28,8 +28,14 @@ class RecipesListViewModel(
         _recipesListStateLiveData.value =
             recipesListState.copy(stateMonitor = StateMonitor.Loading)
         viewModelScope.launch(Dispatchers.Main) {
-            val response = repository.fetchRecipesList(imageWidth)
-
+            val response = repository.fetchRecipesList(imageWidth) {
+                _recipesListStateLiveData.value =
+                    recipesListState
+                        .copy(
+                            stateMonitor = StateMonitor
+                                .Failed(failed = it)
+                        )
+            }
             if (response != null) {
                 _recipesListStateLiveData.value =
                     recipesListState.copy(stateMonitor = StateMonitor.Loaded(response))

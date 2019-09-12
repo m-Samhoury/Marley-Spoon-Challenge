@@ -25,7 +25,7 @@ val repositoryModule: Module = module {
                 get()
             )
     }
-    single { NetworkLayerUtils.createCDAClient(get()) }
+    single { NetworkLayerUtils.createCDAClient() }
     single { Repository(get()) }
 }
 val viewModelsModule = module {

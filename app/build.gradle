@@ -15,6 +15,7 @@ android {
         buildConfigField "String", "BASE_API_URL", "\"$BASE_API_URL/$API_SPACE_ID/environments/$API_ENVIRONMENT_ID/\""
         buildConfigField "String", "API_ACCESS_TOKEN", "\"$API_ACCESS_TOKEN\""
         buildConfigField "String", "API_SPACE_ID", "\"$API_SPACE_ID\""
+        buildConfigField "String", "API_ENVIRONMENT_ID", "\"$API_ENVIRONMENT_ID\""
     }
     buildTypes {
         release {

@@ -3,11 +3,13 @@ package com.challenge.marleyspoon.features.recipeslist
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.challenge.marleyspoon.R
 import com.challenge.marleyspoon.base.MarleySpoonFragment
 import com.challenge.marleyspoon.models.Recipe
 import com.challenge.marleyspoon.repository.network.StateMonitor
+import com.challenge.marleyspoon.utils.ItemDecorationCustomMargins
 import com.challenge.marleyspoon.utils.px
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_recipes_list.*
@@ -40,6 +42,15 @@ class RecipesListFragment : MarleySpoonFragment(R.layout.fragment_recipes_list) 
         recyclerViewRecipesList.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = recipesListAdapter
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            addItemDecoration(
+                ItemDecorationCustomMargins(
+                    top = 8,
+                    bottom = 8,
+                    start = 16,
+                    end = 16
+                )
+            )
         }
     }
 

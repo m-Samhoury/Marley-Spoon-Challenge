@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayoutRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -14,33 +15,32 @@
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription"
         tools:layout_height="80dp"
-        tools:layout_width="80dp"
-        tools:ignore="ContentDescription" />
+        tools:layout_width="80dp" />
 
     <TextView
         android:id="@+id/textViewTitle"
-        style="@style/titleStyle"
-        android:layout_width="wrap_content"
+        style="@style/normalTextStyle"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toTopOf="@id/textViewDescription"
+        app:layout_constraintBottom_toTopOf="@id/chipGroup"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/imageViewThumbnail"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="Dummy recipe title" />
 
-    <TextView
-        android:id="@+id/textViewDescription"
-        style="@style/normalTextStyle"
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:ellipsize="end"
-        android:maxLines="2"
+        android:clickable="false"
+        android:focusable="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/textViewTitle"
-        app:layout_constraintTop_toBottomOf="@id/textViewTitle"
-        tools:text="Dummy recipe description goes over here and over here and goes over here and goes over here" />
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

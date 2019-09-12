@@ -71,9 +71,7 @@ class Repository(private val client: CDAClient) {
                     onError(result.exception)
                 }
             }
-
             return data
-
         }
 
         private suspend fun <T : Any> safeApiResult(

@@ -1,6 +1,7 @@
 package com.challenge.marleyspoon.features.recipedetails
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import androidx.navigation.fragment.navArgs
 import coil.api.load
@@ -29,6 +30,13 @@ class RecipeDetailsFragment : MarleySpoonFragment(R.layout.fragment_recipe_detai
                 crossfade(true)
             }
         textViewTitle.text = args.recipe.title
+
+        if (TextUtils.isEmpty(args.recipe.chef)) {
+            textViewChefName.visibility = View.GONE
+        } else {
+            textViewChefName.text = args.recipe.chef
+        }
+
         textViewDescription.text = args.recipe.description
         if (args.recipe.tags != null) {
             for (tag in args.recipe.tags!!) {
@@ -40,6 +48,8 @@ class RecipeDetailsFragment : MarleySpoonFragment(R.layout.fragment_recipe_detai
                     chipStartPadding = 0f
                 })
             }
+        } else {
+            chipGroup.visibility = View.GONE
         }
     }
 

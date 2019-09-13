@@ -13,6 +13,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
         buildConfigField "String", "BASE_API_URL", "\"$BASE_API_URL/$API_SPACE_ID/environments/$API_ENVIRONMENT_ID/\""
         buildConfigField "String", "API_ACCESS_TOKEN", "\"$API_ACCESS_TOKEN\""
         buildConfigField "String", "API_SPACE_ID", "\"$API_SPACE_ID\""

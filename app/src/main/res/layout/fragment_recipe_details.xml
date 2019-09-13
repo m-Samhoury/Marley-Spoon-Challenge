@@ -62,17 +62,32 @@
             app:layout_constraintVertical_chainStyle="packed"
             tools:text="Dummy recipe title" />
 
+        <TextView
+            android:id="@+id/textViewChefName"
+            style="@style/miniTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:drawablePadding="8dp"
+            android:drawableStart="@drawable/ic_chef"
+            android:drawableTint="@color/lightBlack"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toEndOf="@id/endGuideline"
+            app:layout_constraintTop_toBottomOf="@id/textViewTitle"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Chef name" />
+
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:clickable="false"
             android:focusable="false"
             app:layout_constraintEnd_toEndOf="@id/endGuideline"
             app:layout_constraintStart_toStartOf="@id/textViewTitle"
-            app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
+            app:layout_constraintTop_toBottomOf="@id/textViewChefName" />
 
         <TextView
             android:id="@+id/textViewDescription"

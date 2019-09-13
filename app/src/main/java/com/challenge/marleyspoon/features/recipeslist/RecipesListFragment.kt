@@ -36,6 +36,10 @@ class RecipesListFragment : MarleySpoonFragment(R.layout.fragment_recipes_list) 
             handleState(it)
         })
 
+        fetchRecipes()
+    }
+
+    private fun fetchRecipes() {
         recipesListViewModel.fetchRecipesList(imageWidth = 80.px())
     }
 
@@ -68,7 +72,10 @@ class RecipesListFragment : MarleySpoonFragment(R.layout.fragment_recipes_list) 
                 populateRecipes(result.result)
             }
             is StateMonitor.Failed -> {
-                showError(result.failed, result.action)
+                showLoading(false)
+                showError(result.failed) {
+                    fetchRecipes()
+                }
             }
         }
 
@@ -99,7 +106,7 @@ class RecipesListFragment : MarleySpoonFragment(R.layout.fragment_recipes_list) 
     }
 
     private fun showLoading(shouldShow: Boolean) {
-        if (shouldShow) {
+        if (shouldShow && recipesListAdapter.itemCount == 0) {
             progressBarLoading.show()
         } else {
             progressBarLoading.hide()

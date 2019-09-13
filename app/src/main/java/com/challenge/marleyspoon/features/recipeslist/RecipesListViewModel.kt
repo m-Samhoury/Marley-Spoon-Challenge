@@ -39,13 +39,6 @@ class RecipesListViewModel(
             if (response != null) {
                 _recipesListStateLiveData.value =
                     recipesListState.copy(stateMonitor = StateMonitor.Loaded(response))
-            } else {
-                _recipesListStateLiveData.value =
-                    recipesListState
-                        .copy(
-                            stateMonitor = StateMonitor
-                                .Failed(failed = Throwable("Unknown Error"))
-                        )
             }
         }
     }

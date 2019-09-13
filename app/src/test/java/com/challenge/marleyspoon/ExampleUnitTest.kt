@@ -25,7 +25,9 @@ class ExampleUnitTest {
                 .setToken(BuildConfig.API_ACCESS_TOKEN)
                 .build()
             val repository = Repository(client)
-            val response = repository.fetchRecipesList(200)
+            val response = repository.fetchRecipesList(200){
+
+            }
             if (response != null) {
 
             } else {

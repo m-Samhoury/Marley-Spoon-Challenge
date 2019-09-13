@@ -33,7 +33,10 @@ class Repository(private val client: CDAClient) {
                     ?.all()
                 CDAResponse(cdaArray != null, cdaArray)
             }, {
-                onError(it)
+                withContext(Dispatchers.Main) {
+                    onError(it)
+                }
+                return@safeApiCDACall
             })
             return@withContext array?.items()?.map {
                 val thumbnailImageOptionsList = ArrayList<ImageOption>()
@@ -104,7 +107,7 @@ class Repository(private val client: CDAClient) {
 
         private suspend fun <T : CDAResource> safeApiCDACall(
             call: suspend () -> CDAResponse<T>,
-            onError: (Exception) -> Unit
+            onError: suspend (Exception) -> Unit
         ): T? {
             val result: Result<T> = safeApiCDAResult(call)
             var data: T? = null

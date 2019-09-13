@@ -3,6 +3,7 @@ package com.challenge.marleyspoon.features.recipeslist
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.challenge.marleyspoon.R
@@ -75,7 +76,11 @@ class RecipesListFragment : MarleySpoonFragment(R.layout.fragment_recipes_list) 
         recipesListAdapter.submitList(recipesList)
 
     private fun onRowItemClicked(view: View, position: Int) {
-
+        findNavController().navigate(
+            RecipesListFragmentDirections.actionRecipesListFragmentToRecipeDetailsFragment(
+                recipesListAdapter.currentList[position]
+            )
+        )
     }
 
     private fun showError(throwable: Throwable, action: (() -> Any)? = null) {

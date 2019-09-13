@@ -36,10 +36,10 @@ class Repository(private val client: CDAClient) {
                 onError(it)
             })
             return@withContext array?.items()?.map {
-                val imageOptionsList = ArrayList<ImageOption>()
-                imageOptionsList.add(ImageOption.https())
+                val thumbnailImageOptionsList = ArrayList<ImageOption>()
+                thumbnailImageOptionsList.add(ImageOption.https())
                 if (imageWidth != null) {
-                    imageOptionsList.add(ImageOption.widthOf(imageWidth))
+                    thumbnailImageOptionsList.add(ImageOption.widthOf(imageWidth))
                 }
                 Recipe(
                     id = it.id(),
@@ -49,8 +49,10 @@ class Repository(private val client: CDAClient) {
                     chef = it.getField<CDAEntry>("chef")?.getField<String>("name"),
                     tags = it.getField<ArrayList<CDAEntry>>("tags")
                         ?.map { tag -> tag.getField<String>("name") },
+                    thumbnailUrl = it.getField<CDAAsset>("photo")
+                        .urlForImageWith(*thumbnailImageOptionsList.toTypedArray()),
                     imageUrl = it.getField<CDAAsset>("photo")
-                        .urlForImageWith(*imageOptionsList.toTypedArray())
+                        .urlForImageWith(ImageOption.https())
                 )
             }
         }

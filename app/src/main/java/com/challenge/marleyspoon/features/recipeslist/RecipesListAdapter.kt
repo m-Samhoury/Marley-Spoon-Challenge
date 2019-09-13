@@ -59,7 +59,7 @@ class RecipesListAdapter(private val onRowClicked: ((View, Int) -> Any)? = null)
         fun bind(item: Recipe) {
             itemView.textViewTitle.text = item.title
             itemView.imageViewThumbnail
-                .load(item.imageUrl) {
+                .load(item.thumbnailUrl) {
                     crossfade(true)
                     transformations(CircleCropTransformation())
                 }

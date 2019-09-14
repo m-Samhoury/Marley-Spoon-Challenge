@@ -10,7 +10,3 @@ sealed class NetworkState {
     object Loaded : NetworkState()
     data class Error(val throwable: Throwable, val errorAction:(() -> Any)? = null) : NetworkState()
 }
-
-
-
-

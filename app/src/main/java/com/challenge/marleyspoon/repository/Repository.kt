@@ -16,6 +16,4 @@ interface Repository {
         imageWidth: Int? = null,
         onError: ((Exception) -> Unit)? = null
     ): List<Recipe>?
-
-
 }

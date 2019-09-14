@@ -87,6 +87,4 @@ class RecipesListAdapter(private val onRowClicked: ((View, Int) -> Any)? = null)
             }
         }
     }
-
-
 }

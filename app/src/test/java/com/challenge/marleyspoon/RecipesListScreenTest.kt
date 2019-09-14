@@ -11,12 +11,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.withContext
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
-import org.mockito.stubbing.OngoingStubbing
 
 /**
  * Some tests to make sure the RecipeViewModel is emitting the right states for the UI
@@ -31,7 +27,6 @@ class RecipesListScreenTest {
 
     @get:Rule
     var coroutinesTestRule = CoroutineRule()
-
 
     internal lateinit var recipesListViewModel: RecipesListViewModel
 
@@ -87,12 +82,8 @@ class RecipesListScreenTest {
 
             coroutinesTestRule.resumeDispatcher()
 
-            assertThat(
-                currentViewModelState.stateMonitor is StateMonitor.Loaded
-            ).isTrue()
-            assertThat(
-                (currentViewModelState.stateMonitor as StateMonitor.Loaded).result
-            )
+            assertThat(currentViewModelState.stateMonitor is StateMonitor.Loaded).isTrue()
+            assertThat((currentViewModelState.stateMonitor as StateMonitor.Loaded).result)
                 .hasSize(5)
         }
 
@@ -113,7 +104,6 @@ class RecipesListScreenTest {
             }
             recipesListViewModel = RecipesListViewModel(repository)
 
-
             coroutinesTestRule.pauseDispatcher()
             recipesListViewModel.fetchRecipesList()
 
@@ -121,12 +111,8 @@ class RecipesListScreenTest {
 
             coroutinesTestRule.resumeDispatcher()
 
-            assertThat(
-                currentViewModelState.stateMonitor is StateMonitor.Failed
-            ).isTrue()
-            assertThat(
-                (currentViewModelState.stateMonitor as StateMonitor.Failed).failed
-            )
+            assertThat(currentViewModelState.stateMonitor is StateMonitor.Failed).isTrue()
+            assertThat((currentViewModelState.stateMonitor as StateMonitor.Failed).failed)
                 .isInstanceOf(NetworkErrorException::class.java)
         }
 }

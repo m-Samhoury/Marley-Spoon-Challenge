@@ -26,10 +26,16 @@ class ItemDecorationCustomMargins(
     private val end: Int = 0,
     private val bottom: Int = 0,
     private val predicateToApplyMargins: (ItemDecorationCustomMargins
-    .(view: View, parent: RecyclerView, state: RecyclerView.State) -> Boolean) = { _, _, _ -> true }
+    .(view: View, parent: RecyclerView, state: RecyclerView.State) -> Boolean) =
+        { _, _, _ -> true }
 ) : RecyclerView.ItemDecoration() {
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
         super.getItemOffsets(outRect, view, parent, state)
         if (predicateToApplyMargins(view, parent, state)) {
             if (isLeftToRight()) {
@@ -49,11 +55,10 @@ class ItemDecorationCustomMargins(
             }
         }
     }
-
-
 }
 
 internal fun isLeftToRight() =
-    TextUtilsCompat.getLayoutDirectionFromLocale(Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR
+    TextUtilsCompat
+        .getLayoutDirectionFromLocale(Locale.getDefault()) == ViewCompat.LAYOUT_DIRECTION_LTR
 
 internal fun Context.dip(value: Int): Int = (value * resources.displayMetrics.density).toInt()

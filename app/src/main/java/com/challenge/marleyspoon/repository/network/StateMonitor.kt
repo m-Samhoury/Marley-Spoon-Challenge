@@ -4,8 +4,6 @@ package com.challenge.marleyspoon.repository.network
  * @author moustafasamhoury
  * created on Saturday, 04 May, 2019
  */
-
-
 sealed class StateMonitor<out T> {
     object Loading : StateMonitor<Nothing>()
     object Init : StateMonitor<Nothing>()

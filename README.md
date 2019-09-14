@@ -1,6 +1,14 @@
+# New Document
+
 # Marley Spoon mini app
 
 #### This sample was created to showcase my skills and the latest learnings in the Android Framework.
+
+##### To be able to compile this project, you need to add the following in your global gradle properties file:
+
+##### API_SPACE_ID
+##### API_ENVIRONMENT_ID
+##### API_ACCESS_TOKEN
 
 For this client app I used contentful SDK to be able consume the APIs from contentful
 
@@ -14,6 +22,7 @@ Used LiveData and ViewModels as well
 
 Koin was used to glue the different components together in the application
 
+Included some few number of unit tests as well
 
 Here is a gif demonstrating this super mini app
 

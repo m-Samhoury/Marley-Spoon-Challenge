@@ -26,9 +26,7 @@ class RepositoryImpl(private val client: CDAClient) : Repository {
                 val cdaArray = client
                     .fetch<CDAEntry>(CDAEntry::class.java)
                     ?.withContentType(Recipe.CONTENT_TYPE_RECIPE)
-                    ?.orderBy(
-                        "sys.createdAt"
-                    )
+                    ?.orderBy("sys.createdAt")
                     ?.include(2)
                     ?.all()
                 CDAResponse(cdaArray != null, cdaArray)

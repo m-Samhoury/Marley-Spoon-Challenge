@@ -3,6 +3,7 @@ package com.challenge.marleyspoon.di
 import com.challenge.marleyspoon.BuildConfig
 import com.challenge.marleyspoon.features.recipeslist.RecipesListViewModel
 import com.challenge.marleyspoon.repository.Repository
+import com.challenge.marleyspoon.repository.RepositoryImpl
 import com.challenge.marleyspoon.repository.network.MarleySpoonService
 import com.challenge.marleyspoon.repository.network.NetworkLayerUtils
 import org.koin.android.ext.koin.androidContext
@@ -26,7 +27,7 @@ val repositoryModule: Module = module {
             )
     }
     single { NetworkLayerUtils.createCDAClient() }
-    single { Repository(get()) }
+    single<Repository> { RepositoryImpl(get()) }
 }
 val viewModelsModule = module {
     viewModel {

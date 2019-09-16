@@ -11,7 +11,7 @@ import coil.api.load
 import coil.transform.CircleCropTransformation
 import com.challenge.marleyspoon.R
 import com.challenge.marleyspoon.models.Recipe
-import com.google.android.material.chip.Chip
+import com.challenge.marleyspoon.utils.addRecipeTagChip
 import kotlinx.android.synthetic.main.item_recipes_list.view.*
 
 /**
@@ -20,8 +20,7 @@ import kotlinx.android.synthetic.main.item_recipes_list.view.*
  */
 
 class RecipesListAdapter(private val onRowClicked: ((View, Int) -> Any)? = null) :
-    ListAdapter<Recipe, RecipesListAdapter
-    .RecipeViewHolder>(DIFF_CALLBACK) {
+    ListAdapter<Recipe, RecipesListAdapter.RecipeViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private val DIFF_CALLBACK = object :
@@ -37,9 +36,9 @@ class RecipesListAdapter(private val onRowClicked: ((View, Int) -> Any)? = null)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder =
         RecipeViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_recipes_list, parent, false),
-            onRowClicked
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_recipes_list, parent, false
+            ), onRowClicked
         )
 
     override fun onBindViewHolder(holder: RecipeViewHolder, position: Int) =
@@ -71,13 +70,7 @@ class RecipesListAdapter(private val onRowClicked: ((View, Int) -> Any)? = null)
                 initialConstraintSet.applyTo(itemView.constraintLayoutRoot)
 
                 for (tag in item.tags.take(MAX_TAGS)) {
-                    itemView.chipGroup.addView(Chip(itemView.context).apply {
-                        text = tag
-                        isClickable = false
-                        isCheckable = false
-                        chipEndPadding = 0f
-                        chipStartPadding = 0f
-                    })
+                    itemView.chipGroup.addRecipeTagChip(tag)
                 }
             } else {
                 val initialConstraintSet = ConstraintSet()

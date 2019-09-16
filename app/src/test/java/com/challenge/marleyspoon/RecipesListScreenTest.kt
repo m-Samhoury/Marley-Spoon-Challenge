@@ -31,88 +31,82 @@ class RecipesListScreenTest {
     internal lateinit var recipesListViewModel: RecipesListViewModel
 
     private val currentViewModelState
-        get() = LiveDataTestUtil.getValue(
-            recipesListViewModel
-                .recipesListStateLiveData
-        )
+        get() = LiveDataTestUtil.getValue(recipesListViewModel.recipesListStateLiveData)
 
     @Test
-    fun `loading state is triggered`() =
-        coroutinesTestRule.runBlockingTest {
-            val repository = object : Repository {
-                override suspend fun fetchRecipesList(
-                    imageWidth: Int?,
-                    onError: ((Exception) -> Unit)?
-                ): List<Recipe>? = emptyList()
-
-            }
-            recipesListViewModel = RecipesListViewModel(repository)
-
-            coroutinesTestRule.pauseDispatcher()
-
-            recipesListViewModel.fetchRecipesList()
-
-            assertThat(currentViewModelState.stateMonitor is StateMonitor.Loading).isTrue()
-            coroutinesTestRule.resumeDispatcher()
+    fun `get recipes list triggers loading state`() = coroutinesTestRule.runBlockingTest {
+        val repository = object : Repository {
+            override suspend fun fetchRecipesList(
+                imageWidth: Int?,
+                onError: ((Exception) -> Unit)?
+            ): List<Recipe>? = emptyList()
 
         }
+        recipesListViewModel = RecipesListViewModel(repository)
+
+        coroutinesTestRule.pauseDispatcher()
+
+        recipesListViewModel.fetchRecipesList()
+
+        assertThat(currentViewModelState.stateMonitor is StateMonitor.Loading).isTrue()
+        coroutinesTestRule.resumeDispatcher()
+
+    }
 
     @Test
-    fun `successful path with data`() =
-        coroutinesTestRule.runBlockingTest {
-            val repository = object : Repository {
-                override suspend fun fetchRecipesList(
-                    imageWidth: Int?,
-                    onError: ((Exception) -> Unit)?
-                ): List<Recipe>? = listOf(
-                    Recipe(id = "1"),
-                    Recipe(id = "2"),
-                    Recipe(id = "3"),
-                    Recipe(id = "4"),
-                    Recipe(id = "5")
-                )
+    fun `get recipes list and return success`() = coroutinesTestRule.runBlockingTest {
+        val repository = object : Repository {
+            override suspend fun fetchRecipesList(
+                imageWidth: Int?,
+                onError: ((Exception) -> Unit)?
+            ): List<Recipe>? = listOf(
+                Recipe(id = "1"),
+                Recipe(id = "2"),
+                Recipe(id = "3"),
+                Recipe(id = "4"),
+                Recipe(id = "5")
+            )
 
-            }
-            recipesListViewModel = RecipesListViewModel(repository)
-
-            coroutinesTestRule.pauseDispatcher()
-            recipesListViewModel.fetchRecipesList()
-
-            assertThat(currentViewModelState.stateMonitor is StateMonitor.Loading).isTrue()
-
-            coroutinesTestRule.resumeDispatcher()
-
-            assertThat(currentViewModelState.stateMonitor is StateMonitor.Loaded).isTrue()
-            assertThat((currentViewModelState.stateMonitor as StateMonitor.Loaded).result)
-                .hasSize(5)
         }
+        recipesListViewModel = RecipesListViewModel(repository)
+
+        coroutinesTestRule.pauseDispatcher()
+        recipesListViewModel.fetchRecipesList()
+
+        assertThat(currentViewModelState.stateMonitor is StateMonitor.Loading).isTrue()
+
+        coroutinesTestRule.resumeDispatcher()
+
+        assertThat(currentViewModelState.stateMonitor is StateMonitor.Loaded).isTrue()
+        assertThat((currentViewModelState.stateMonitor as StateMonitor.Loaded).result)
+            .hasSize(5)
+    }
 
     @Test
-    fun `error path`() =
-        coroutinesTestRule.runBlockingTest {
-            val repository = object : Repository {
-                override suspend fun fetchRecipesList(
-                    imageWidth: Int?,
-                    onError: ((Exception) -> Unit)?
-                ): List<Recipe>? {
-                    withContext(Dispatchers.Main) {
-                        onError?.invoke(NetworkErrorException("No internet"))
-                    }
-                    return null
+    fun `get recipes list and return failure`() = coroutinesTestRule.runBlockingTest {
+        val repository = object : Repository {
+            override suspend fun fetchRecipesList(
+                imageWidth: Int?,
+                onError: ((Exception) -> Unit)?
+            ): List<Recipe>? {
+                withContext(Dispatchers.Main) {
+                    onError?.invoke(NetworkErrorException("No internet"))
                 }
-
+                return null
             }
-            recipesListViewModel = RecipesListViewModel(repository)
 
-            coroutinesTestRule.pauseDispatcher()
-            recipesListViewModel.fetchRecipesList()
-
-            assertThat(currentViewModelState.stateMonitor is StateMonitor.Loading).isTrue()
-
-            coroutinesTestRule.resumeDispatcher()
-
-            assertThat(currentViewModelState.stateMonitor is StateMonitor.Failed).isTrue()
-            assertThat((currentViewModelState.stateMonitor as StateMonitor.Failed).failed)
-                .isInstanceOf(NetworkErrorException::class.java)
         }
+        recipesListViewModel = RecipesListViewModel(repository)
+
+        coroutinesTestRule.pauseDispatcher()
+        recipesListViewModel.fetchRecipesList()
+
+        assertThat(currentViewModelState.stateMonitor is StateMonitor.Loading).isTrue()
+
+        coroutinesTestRule.resumeDispatcher()
+
+        assertThat(currentViewModelState.stateMonitor is StateMonitor.Failed).isTrue()
+        assertThat((currentViewModelState.stateMonitor as StateMonitor.Failed).failed)
+            .isInstanceOf(NetworkErrorException::class.java)
+    }
 }

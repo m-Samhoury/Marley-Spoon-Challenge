@@ -1,8 +1,9 @@
 package com.challenge.marleyspoon.repository
 
 import com.challenge.marleyspoon.models.Recipe
-import com.contentful.java.cda.*
-import com.contentful.java.cda.image.ImageOption
+import com.contentful.java.cda.CDAClient
+import com.contentful.java.cda.CDAEntry
+import com.contentful.java.cda.CDAResource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
@@ -37,24 +38,7 @@ class RepositoryImpl(private val client: CDAClient) : Repository {
                 return@safeApiCDACall
             })
             return@withContext array?.items()?.map {
-                val thumbnailImageOptionsList = ArrayList<ImageOption>()
-                thumbnailImageOptionsList.add(ImageOption.https())
-                if (imageWidth != null) {
-                    thumbnailImageOptionsList.add(ImageOption.widthOf(imageWidth))
-                }
-                Recipe(
-                    id = it.id(),
-                    title = (it as LocalizedResource).getField<String>("title"),
-                    calories = it.getField<Double>("calories"),
-                    description = it.getField<String>("description"),
-                    chef = it.getField<CDAEntry>("chef")?.getField<String>("name"),
-                    tags = it.getField<ArrayList<CDAEntry>>("tags")
-                        ?.map { tag -> tag.getField<String>("name") },
-                    thumbnailUrl = it.getField<CDAAsset>("photo")
-                        ?.urlForImageWith(*thumbnailImageOptionsList.toTypedArray()),
-                    imageUrl = it.getField<CDAAsset>("photo")
-                        ?.urlForImageWith(ImageOption.https())
-                )
+                Recipe.createRecipeFromCDAResource(it)
             }
         }
 

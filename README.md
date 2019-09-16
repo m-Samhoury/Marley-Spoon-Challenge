@@ -1,5 +1,3 @@
-# New Document
-
 # Marley Spoon mini app
 
 #### This sample was created to showcase my skills and the latest learnings in the Android Framework.

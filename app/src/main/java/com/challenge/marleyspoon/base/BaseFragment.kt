@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
  * created on Tuesday, 10 Sep, 2019
  */
 
-abstract class MarleySpoonFragment(layout: Int) : Fragment(layout) {
+abstract class BaseFragment(layout: Int) : Fragment(layout) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

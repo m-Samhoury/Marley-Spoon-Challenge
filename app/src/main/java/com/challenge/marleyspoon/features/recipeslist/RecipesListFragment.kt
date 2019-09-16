@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.challenge.marleyspoon.R
-import com.challenge.marleyspoon.base.MarleySpoonFragment
+import com.challenge.marleyspoon.base.BaseFragment
 import com.challenge.marleyspoon.models.Recipe
 import com.challenge.marleyspoon.repository.network.StateMonitor
 import com.challenge.marleyspoon.utils.ItemDecorationCustomMargins
@@ -21,7 +21,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  * created on Tuesday, 10 Sep, 2019
  */
 
-class RecipesListFragment : MarleySpoonFragment(R.layout.fragment_recipes_list) {
+class RecipesListFragment : BaseFragment(R.layout.fragment_recipes_list) {
 
     private val recipesListViewModel: RecipesListViewModel by viewModel()
 
@@ -50,10 +50,8 @@ class RecipesListFragment : MarleySpoonFragment(R.layout.fragment_recipes_list) 
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             addItemDecoration(
                 ItemDecorationCustomMargins(
-                    top = 8,
-                    bottom = 8,
-                    start = 16,
-                    end = 16
+                    top = 8, bottom = 8,
+                    start = 16, end = 16
                 )
             )
         }
@@ -107,9 +105,9 @@ class RecipesListFragment : MarleySpoonFragment(R.layout.fragment_recipes_list) 
 
     private fun showLoading(shouldShow: Boolean) {
         if (shouldShow && recipesListAdapter.itemCount == 0) {
-            progressBarLoading.show()
+            progressBarLoadingRecipes.show()
         } else {
-            progressBarLoading.hide()
+            progressBarLoadingRecipes.hide()
         }
     }
 }

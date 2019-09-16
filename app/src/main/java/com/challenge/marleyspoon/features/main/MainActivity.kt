@@ -6,14 +6,14 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.challenge.marleyspoon.R
-import com.challenge.marleyspoon.base.MarleySpoonActivity
+import com.challenge.marleyspoon.base.BaseActivity
 
 /**
  * @author moustafasamhoury
  * created on Thursday, 12 Sep, 2019
  */
 
-class MainActivity : MarleySpoonActivity(R.layout.activity_main) {
+class MainActivity : BaseActivity(R.layout.activity_main) {
 
     private val appBarConfiguration = AppBarConfiguration(
         setOf(R.id.recipesListFragment)
